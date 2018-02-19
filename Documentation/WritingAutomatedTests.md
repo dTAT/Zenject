@@ -31,7 +31,7 @@ public class Logger
     {
         if (value == null)
         {
-            throw new ArgumentException();
+            Assert.Throws<System.ArgumentException> (() => logger.Write (null));
         }
 
         Log += value;
@@ -52,7 +52,9 @@ public class TestLogger : ZenjectUnitTestFixture
     [SetUp]
     public void CommonInstall()
     {
-        Container.Bind<Logger>().AsSingle();
+    	PreInstall ();
+		Container.Bind<Logger> ().AsSingle ();
+		PostInstall ();
     }
 
     [Test]
